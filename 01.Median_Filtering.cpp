@@ -1,7 +1,7 @@
 ﻿#include <iostream>
 #include <vector>
-#include "opencv2/imgproc.hpp"
 #include <opencv2/highgui.hpp>
+//#include "opencv2/imgproc.hpp"
 
 using namespace cv;
 using namespace std;
@@ -21,14 +21,13 @@ void myMedianFilter(InputArray input, OutputArray& output, int windowSize) {
 				}
 			}
 			sort(v.begin(), v.end());
-			dst.at<uchar>(x, y) = v.at(range);
+			dst.at<uchar>(x, y) = v.at(v.size()/2);
         }
 }
 
 int main()
 {
 	Mat image = imread("E:\\Study\\2022-1학기\\영상처리\\MedianFilterInput.png", 0);
-	Mat result;
 
 	int window = 5;
 
@@ -37,10 +36,15 @@ int main()
 		return 0;
 	}
 	
-	myMedianFilter(image, result, window);
+	// imshow("Original_Image", image);
 
-	imshow("Image", image);
-	imshow("Median_Filtered_Image", result);
+	Mat result;
+	myMedianFilter(image, result, window);
+	imshow("myMedianFilter result", result);
+
+	//Mat correct_result;
+	//medianBlur(image, correct_result, window);
+	//imshow("medianBlur result", correct_result);
 
 	waitKey();
 
