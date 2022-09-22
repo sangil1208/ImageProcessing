@@ -8,12 +8,12 @@ using namespace std;
 
 
 void myMedianFilter(InputArray input, OutputArray& output, int windowSize) {
-    const Mat& img = input.getMat();
-    output.create(img.size(), img.type());
+	const Mat& img = input.getMat();
+	output.create(img.size(), img.type());
 	Mat dst = output.getMat();
-    int range = windowSize / 2;
-    for (int x = 0; x < img.rows; x++)
-        for (int y = 0; y < img.cols; y++) {
+	int range = windowSize / 2;
+	for (int x = 0; x < img.rows; x++)
+		for (int y = 0; y < img.cols; y++) {
 			vector<uchar> v;
 			for (int t = -range; t <= range; t++) {
 				for (int s = -range; s <= range; s++) {
@@ -21,8 +21,8 @@ void myMedianFilter(InputArray input, OutputArray& output, int windowSize) {
 				}
 			}
 			sort(v.begin(), v.end());
-			dst.at<uchar>(x, y) = v.at(v.size()/2);
-        }
+			dst.at<uchar>(x, y) = v.at(v.size() / 2);
+		}
 }
 
 int main()
@@ -35,13 +35,15 @@ int main()
 		cout << "Window Size Error!" << endl;
 		return 0;
 	}
-	
-	// imshow("Original_Image", image);
+
+	//imshow("Original_Image", image);
 
 	Mat result;
 	myMedianFilter(image, result, window);
+	imshow("original", image);
 	imshow("myMedianFilter result", result);
-
+	cout >> "123";
+	imshow("original", image);
 	//Mat correct_result;
 	//medianBlur(image, correct_result, window);
 	//imshow("medianBlur result", correct_result);
